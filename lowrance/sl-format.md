@@ -34,7 +34,7 @@ float | FloatLE (32 bits IEEE 754 floating point number)
 flags | UInt16LE
 
 ## Structure
-###Header
+### Header
 8 byte header, then a series of blocks/frames as described below.
 
 | offset | bytes | type  | description
