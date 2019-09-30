@@ -58,13 +58,13 @@ https://github.com/risty/SonarLogApi/blob/master/SonarLogAPI/Lowrance/Frame.cs
 
 |offset| bytes | type  | description
 | ---: |  ---: | :---: | ---
-|    0 |     4 | short | frame offset in file
-|    4 |     4 | short | last primary channel frame offset in file
-|    8 |     4 | short | last secondary channel frame offset in file
-|   12 |     4 | short | last downscan channel frame offset in file
-|   16 |     4 | short | last left sidescan channel frame offset in file
-|   20 |     4 | short | last right sidescan channel frame offset in file
-|   24 |     4 | short | last composite sidescan channel frame offset in file
+|    0 |     4 | int   | frame offset in file
+|    4 |     4 | int   | last primary channel frame offset in file
+|    8 |     4 | int   | last secondary channel frame offset in file
+|   12 |     4 | int   | last downscan channel frame offset in file
+|   16 |     4 | int   | last left sidescan channel frame offset in file
+|   20 |     4 | int   | last right sidescan channel frame offset in file
+|   24 |     4 | int   | last composite sidescan channel frame offset in file
 |   28 |     2 | short | blockSize[1], size of current block in bytes
 |   30 |     2 | short | lastBlockSize, size of previous block (frameIndex -1) in bytes.
 |   32 |     2 | short | channel[2], gets translated to channelName
