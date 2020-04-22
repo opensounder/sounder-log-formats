@@ -16,6 +16,7 @@ Please add some
 - https://github.com/Seva-coder/FindFish
 - https://github.com/risty/SonarLogApi
 - https://github.com/Chris78/sl2decode
+- https://github.com/hrbrmstr/sl2json
 
 
 ## Hummingbird
