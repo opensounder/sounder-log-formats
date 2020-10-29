@@ -10,6 +10,7 @@ Please add some
 
 ## Lowrance
 - [Lowrance SL (SL2/SL3/SLG) format](lowrance/sl-format.md)
+- [Navico SLG Format (PDF)](https://www.memotech.franken.de/FileFormats/Navico_SLG_Format.pdf)
 
 ### Lowrance Implementations
 - https://github.com/kmpm/node-sl2format
@@ -17,6 +18,7 @@ Please add some
 - https://github.com/risty/SonarLogApi
 - https://github.com/Chris78/sl2decode
 - https://github.com/hrbrmstr/sl2json
+- https://github.com/hrbrmstr/arabia
 
 
 ## Hummingbird
