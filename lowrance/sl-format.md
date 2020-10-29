@@ -11,6 +11,8 @@ http://wiki.openstreetmap.org/wiki/SL2
 Some hints and info about slg can be found at
 http://www.geotech1.com/forums/showthread.php?11159-Lowrance-MCC-saved-data-structure
 
+Some information found in
+https://www.memotech.franken.de/FileFormats/Navico_SLG_Format.pdf
 
 Much of the following is a straight copy of 
 https://github.com/kmpm/node-sl2format/edit/master/doc/sl2fileformat.md
@@ -29,7 +31,8 @@ type  | definition
 ------|-----------
 byte  | UInt8
 short | UInt16LE
-int   | UInt32LE
+int   | Int32LE
+uint  | UInt32LE
 float | FloatLE (32 bits IEEE 754 floating point number)
 flags | UInt16LE
 
@@ -55,18 +58,18 @@ This is mostly tested with SL2 and some SLG.
 
 |offset| bytes | type  | description
 | ---: |  ---: | :---: | ---
-|    0 |     4 | int   | frame offset in file
-|    4 |     4 | int   | last primary channel frame offset in file
-|    8 |     4 | int   | last secondary channel frame offset in file
-|   12 |     4 | int   | last downscan channel frame offset in file
-|   16 |     4 | int   | last left sidescan channel frame offset in file
-|   20 |     4 | int   | last right sidescan channel frame offset in file
-|   24 |     4 | int   | last composite sidescan channel frame offset in file
+|    0 |     4 | uint  | frame offset in file
+|    4 |     4 | uint  | last primary channel frame offset in file
+|    8 |     4 | uint  | last secondary channel frame offset in file
+|   12 |     4 | uint  | last downscan channel frame offset in file
+|   16 |     4 | uint  | last left sidescan channel frame offset in file
+|   20 |     4 | uint  | last right sidescan channel frame offset in file
+|   24 |     4 | uint  | last composite sidescan channel frame offset in file
 |   28 |     2 | short | blockSize[1], size of current block in bytes
 |   30 |     2 | short | lastBlockSize, size of previous block (frameIndex -1) in bytes.
 |   32 |     2 | short | channel[2], gets translated to channelName
 |   34 |     2 | short | packetSize. Size of soundeing/bounce data.
-|   36 |     4 | int   | frameIndex. Starts at 0. Used ot match frames/block on different channels.
+|   36 |     4 | uint  | frameIndex. Starts at 0. Used ot match frames/block on different channels.
 |   40 |     4 | float | upperLimit
 |   44 |     4 | float | lowerLimit
 |   48 |     - | ?     | unknown / not verified
@@ -85,7 +88,7 @@ This is mostly tested with SL2 and some SLG.
 |  128 |     4 | float | heading, in radians
 |  132 |     2 | flags | flags[4] bit coded.
 |  134 |     - | ?     | unkown / not verified
-|  140 |     4 | int   | time1, Unknown resolution, unknown epoch.
+|  140 |     4 | uint  | time1, Unknown resolution, unknown epoch.
 |  144 |     ? | ?     | unknown / not verified. Contains sounding/bounce data
 
 __blockSize[1]__ The last block in the file doesn't always follow this pattern and I don't know why.
@@ -156,15 +159,15 @@ This table is created with that as a base but is not verified.
 
 |offset| bytes | type  | description
 | ---: |  ---: | :---: | ---
-|    0 |     4 | int   | frame offset in file
+|    0 |     4 | uint  | frame offset in file
 |    8 |     2 | short | blocksize - bytes to next block start
 |   10 |     2 | short | previous blocksize - bytes to previous block start
 |   12 |     2 | short | channel type
-|   16 |     4 | int   | block/frame index
+|   16 |     4 | uint  | block/frame index
 |   20 |     4 | float | upper limit
 |   24 |     4 | float | lower limit
 |   28 |    12 | ?     | unknown
-|   40 |     4 | int   | creation data time - value at fist frame = Unix time stamp of file creation. If GPS cant find position value will be "-1". Other frames - time in milliseconds from device boot.
+|   40 |     4 | uint  | creation data time - value at fist frame = Unix time stamp of file creation. If GPS cant find position value will be "-1". Other frames - time in milliseconds from device boot.
 |   44 |     2 | short | packet size. Size of sounding/bounce/ping data.
 |   48 |     4 | float | depth
 |   52 |     1 | byte  | frequency
@@ -177,15 +180,15 @@ This table is created with that as a base but is not verified.
 |  108 |     4 | float | altitude in feet
 |  112 |     4 | float | heading, in radians
 |  116 |     2 | flags | flags[4] bit coded.
-|  124 |     4 | int   | time in milliseconds from file creation
-|  128 |     4 | int   | last primary channel frame offset in file
-|  132 |     4 | int   | last secondary channel frame offset in file
-|  136 |     4 | int   | last downscan channel frame offset in file
-|  140 |     4 | int   | last left sidescan channel frame offset in file
-|  144 |     4 | int   | last right sidescan channel frame offset in file
-|  148 |     4 | int   | last composite sidescan channel frame offset in file
+|  124 |     4 | uint  | time in milliseconds from file creation
+|  128 |     4 | uint  | last primary channel frame offset in file
+|  132 |     4 | uint  | last secondary channel frame offset in file
+|  136 |     4 | uint  | last downscan channel frame offset in file
+|  140 |     4 | uint  | last left sidescan channel frame offset in file
+|  144 |     4 | uint  | last right sidescan channel frame offset in file
+|  148 |     4 | uint  | last composite sidescan channel frame offset in file
 |  152 |    12 | ?     | unknown
-|  164 |     4 | int   | last three DC channel frame offset
+|  164 |     4 | uint  | last three DC channel frame offset
 |  168 |     ? | ?     | sounded data
 
 
@@ -197,8 +200,8 @@ This table is created with that as a base but is not verified.
 |   28 |     2 | short | blockSize[1], size of current block in bytes
 |   30 |     2 | short | lastBlockSize, size of previous block (frameIndex -1) in bytes.
 |   32 |     2 | short | channel[2], gets translated to channelName
-|   36 |     4 | int   | frameIndex. Starts at 0. Used ot match frames/block on different channels.
+|   36 |     4 | uint   | frameIndex. Starts at 0. Used ot match frames/block on different channels.
 |   64 |     4 | float | waterDepth in feet
 |   68 |     4 | float | keelDepth in feet
-|  140 |     4 | int   | time1, Unknown resolution, unknown epoch.
+|  140 |     4 | uint   | time1, Unknown resolution, unknown epoch.
 |  144 |     ? | ?     | unknown / not verified. Contains sounding/bounce data
