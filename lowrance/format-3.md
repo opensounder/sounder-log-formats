@@ -16,6 +16,10 @@ https://github.com/KennethTM/sonaR/blob/master/src/read_slx.cpp .
 
 This table is created with that as a base but is not verified.
 
+If channel number is above 5 then byte 128 and on in the header is not used.
+That means that channel 0-5 then it's 168 bytes and channel > 5 then
+it's only 128 bytes long. Act accordingly
+
 |offset| bytes | type  | description
 | ---: |  ---: | :---: | ---
 |    0 |     4 | uint  | frame offset in file
@@ -41,6 +45,7 @@ This table is created with that as a base but is not verified.
 |  112 |     4 | float | heading, in radians
 |  116 |     2 | flags | flags[4] bit coded.
 |  124 |     4 | uint  | time in milliseconds from file creation
+|      |       |       | if channel > 5 then byte 128 and forward is not included
 |  128 |     4 | uint  | last primary channel frame offset in file
 |  132 |     4 | uint  | last secondary channel frame offset in file
 |  136 |     4 | uint  | last downscan channel frame offset in file
@@ -62,6 +67,17 @@ This table is created with that as a base but is not verified.
 |   68 |     4 | float | keelDepth in feet
 |  140 |     4 | uint   | time1, Unknown resolution, unknown epoch.
 |  144 |     ? | ?     | unknown / not verified. Contains sounding/bounce data
+
+__channel[2]__
+* 0 = Primary (Tranditional Sonar)
+* 1 = Secondary (Traditional Sonar)
+* 2 = DSI (DownScan Imaging)
+* 3 = Left (Sidescan)
+* 4 = Right (Sidescan)
+* 5 = Composite (Sidescan)
+* 7 = ? seen in version 2
+* 8 = ? seen in version 2
+* 9 = ? seen in version 1
 
 
 __flags[4]__
