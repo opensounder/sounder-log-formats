@@ -22,12 +22,12 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 |   36 |     4 | uint  | frameIndex. Starts at 0. Used ot match frames/block on different channels.
 |   40 |     4 | float | upperLimit
 |   44 |     4 | float | lowerLimit
-|   48 |     - | ?     | unknown / not verified
+|   48 |     2 | ?     | unknown / not verified
 |   50 |     1 | byte  | frequency[3]
-|   51 |     - | ?     | unknown / not verified
+|   51 |    13 | ?     | unknown / not verified
 |   64 |     4 | float | waterDepth in feet
 |   68 |     4 | float | keelDepth in feet
-|   72 |     - | ?     | unknown / not verified
+|   72 |    28 | ?     | unknown / not verified
 |  100 |     4 | float | speedGps, Speed from gps in knots
 |  104 |     4 | float | temperature, in Celcius
 |  108 |     4 | int   | lowrance encoded longitude
@@ -37,9 +37,9 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 |  124 |     4 | float | altitude in feet
 |  128 |     4 | float | heading, in radians
 |  132 |     2 | flags | flags[4] bit coded.
-|  134 |     - | ?     | unkown / not verified
+|  134 |     6 | ?     | unkown / not verified
 |  140 |     4 | uint  | time1, Unknown resolution, unknown epoch.
-|  144 |     ? | ?     | unknown / not verified. Contains sounding/bounce data
+|  144 |     ? | ?     | unknown / not verified. Contains sounding/bounce data and get size from packetSize
 
 __blockSize[1]__ The last block in the file doesn't always follow this pattern and I don't know why.
 
