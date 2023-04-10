@@ -121,8 +121,8 @@ namespace format2 {
 
     struct FrameHeader {
         u32 offset;
-        if (offset != ($-4)) {
-            std::print("bad offset real:{} calc:{}", $-4, offset);
+        if (offset != addressof(this)) {
+            std::print("bad offset real:{} calc:{}", addressof(this), offset);
             break;
         }
         u32 lastPrimaryOffset;
