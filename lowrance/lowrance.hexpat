@@ -121,8 +121,8 @@ namespace format2 {
 
     struct FrameHeader {
         u32 offset;
-        if (offset != ($-4)) {
-            std::print("bad offset real:{} calc:{}", $-4, offset);
+        if (offset != addressof(this)) {
+            std::warning("bad offset real:{} calc:{}", addressof(this), offset);
             break;
         }
         u32 lastPrimaryOffset;
@@ -164,7 +164,21 @@ namespace format2 {
     // char data[blockSize];
     
     struct Frame {
+        if (std::mem::eof()){
+            break;
+        }
+        
+        if (std::mem::size() < (addressof(this) + 144)){
+            std::warning("partial packet header");
+            break; 
+        }
+        
         FrameHeader header [[inline]];
+        
+        if (std::mem::size() < (addressof(this) + header.blockSize)){
+            std::warning("partial packet data");
+            break;
+        }            
         //std::print("h size= {}, diff={}", sizeof(header), sizeof(header)-140 );
         u8 data[header.packetSize];
     } [[format("frame_fmt")]];
@@ -184,10 +198,7 @@ fn frame_fmt(format2::Frame f) {
 Header header @0x00;
 
 //if (header.format == 2) {
-//    Frame2 entries[while(!std::mem::eof())] @0x08;
-//format2::Header entries[while(!std::mem::eof())] @ 0x08;
-    format2::Frame entries[std::math::min(MAX_RECORDS, sizeof($)/(header.blockSize+16))] @ 0x08;
-//format2::Header frame @ 0x08;
+    format2::Frame entries[MAX_RECORDS] @ 0x08;
 //}
 
 
